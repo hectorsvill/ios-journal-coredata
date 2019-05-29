@@ -116,7 +116,7 @@
                                     <segmentedControl contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="JD7-Ep-egM">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="29"/>
                                         <segments>
-                                            <segment title="😀"/>
+                                            <segment title="😁"/>
                                             <segment title="😅"/>
                                             <segment title="😱"/>
                                         </segments>
@@ -158,6 +158,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="bodyTextView" destination="nkx-Kn-Lkk" id="rgZ-aX-Chi"/>
+                        <outlet property="moodSegementControl" destination="JD7-Ep-egM" id="4kk-A5-Ydp"/>
                         <outlet property="titleTextField" destination="xn4-tW-yx0" id="Rw5-Dl-i03"/>
                     </connections>
                 </viewController>

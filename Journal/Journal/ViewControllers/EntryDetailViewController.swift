@@ -67,6 +67,7 @@ class EntryDetailViewController: UIViewController, UITextFieldDelegate {
 	}
 	
 	
+	@IBOutlet var moodSegementControl: UISegmentedControl!
 	@IBOutlet var titleTextField: UITextField!
 	@IBOutlet var bodyTextView: UITextView!
 	var entry: Entry? { didSet { updateViews() } }
