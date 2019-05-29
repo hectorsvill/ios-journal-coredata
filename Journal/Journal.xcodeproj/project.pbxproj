@@ -391,7 +391,7 @@
 				E8282AB6229E502C00BDBCB5 /* Journal 2.xcdatamodel */,
 				E8282AAD229DDCE300BDBCB5 /* Journal.xcdatamodel */,
 			);
-			currentVersion = E8282AAD229DDCE300BDBCB5 /* Journal.xcdatamodel */;
+			currentVersion = E8282AB6229E502C00BDBCB5 /* Journal 2.xcdatamodel */;
 			path = JournalModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

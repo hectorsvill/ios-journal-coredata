@@ -29,6 +29,7 @@ class EntryDetailViewController: UIViewController, UITextFieldDelegate {
 			title = entry.title
 			titleTextField?.text = entry.title
 			bodyTextView?.text = entry.bodyText
+			moodSegementControl.selectedSegmentIndex = getMoodIndex(mood: entry.mood!)
 		} else {
 			title = "Create Journal"
 		}
@@ -41,12 +42,15 @@ class EntryDetailViewController: UIViewController, UITextFieldDelegate {
 			simpleAlert(title: "Error", message: "Your title/body is Empty.")
 		}
 		
+		let mood = getMood(i: moodSegementControl.selectedSegmentIndex)
+		
 		if let entry = entry {
 			entry.title = title
 			entry.bodyText = body
 			entry.timeStamp = Date()
+			entry.mood = mood
 		} else {
-			let _ = Entry(title: title, bodyText: body)
+			let _ = Entry(title: title, bodyText: body, mood: mood)
 		}
 		
 		do {
@@ -60,6 +64,30 @@ class EntryDetailViewController: UIViewController, UITextFieldDelegate {
 		navigationController?.popViewController(animated: true)
 	}
 	
+	func getMood(i: Int) -> String{
+		switch i {
+		case 0:
+			return "😁"
+		case 1:
+			return "😅"
+		case 2:
+			return "😱"
+		default:
+			return ""
+		}
+	}
+	func getMoodIndex(mood: String) -> Int{
+		switch mood {
+		case "😁":
+			return 0
+		case "😅":
+			return 1
+		case "😱":
+			return 2
+		default:
+			return 0
+		}
+	}
 	func simpleAlert(title: String, message: String) {
 		let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
 		ac.addAction(UIAlertAction(title: "Ok", style: .cancel))
