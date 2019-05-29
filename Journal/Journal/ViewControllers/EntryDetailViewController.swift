@@ -16,11 +16,11 @@ class EntryDetailViewController: UIViewController, UITextFieldDelegate {
 		titleTextField.delegate = self
     }
 	
-	func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-		
-		print("textField delegate")
-		return true
-	}
+//	func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//		
+//		print("textField delegate")
+//		return true
+//	}
 	
 	private func updateViews() {
 		guard isViewLoaded else { return }
@@ -44,6 +44,7 @@ class EntryDetailViewController: UIViewController, UITextFieldDelegate {
 		
 		let mood = getMood(i: moodSegementControl.selectedSegmentIndex)
 		
+
 		if let entry = entry {
 			entry.title = title
 			entry.bodyText = body
@@ -53,18 +54,22 @@ class EntryDetailViewController: UIViewController, UITextFieldDelegate {
 			let _ = Entry(title: title, bodyText: body, mood: mood)
 		}
 		
+		
+		
 		do {
-			try CoreDataStack.shared.mainContext.save()
+			let moc = CoreDataStack.shared.mainContext
+			try moc.save()
 		} catch {
 			NSLog("Failed To Save: \(error)")
 			simpleAlert(title: "Error", message: "Maybe your title is longer then 20 char.")
 			return
 		}
-		
+
+		print(mood)
 		navigationController?.popViewController(animated: true)
 	}
 	
-	func getMood(i: Int) -> String{
+	func getMood(i: Int) -> String {
 		switch i {
 		case 0:
 			return "😁"
@@ -76,6 +81,7 @@ class EntryDetailViewController: UIViewController, UITextFieldDelegate {
 			return ""
 		}
 	}
+	
 	func getMoodIndex(mood: String) -> Int{
 		switch mood {
 		case "😁":

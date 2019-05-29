@@ -11,7 +11,7 @@ import CoreData
 
 
 extension Entry {
-	convenience init (title: String, bodyText: String,
+	convenience init (title: String, bodyText: String? = nil,
 					  identifier: String = UUID().uuidString,
 					  timeStamp: Date = Date(),
 					  mood: String,

@@ -21,61 +21,10 @@ class EntriesTableViewController: UITableViewController, NSFetchedResultsControl
 		tableView.reloadData()
 	}
 	
+	
+	
 	override func numberOfSections(in tableView: UITableView) -> Int {
 		return fetchedResultController.sections?.count ?? 1
-	}
-	
-	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-		return fetchedResultController.sections?[section].name
-	}
-	
-	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return fetchedResultController.sections?[section].numberOfObjects ?? 0
-	}
-	
-	func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-		tableView.reloadData()
-	}
-	
-	func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-		switch type {
-		case .insert:
-			guard let newIndexPath = newIndexPath else { return }
-			tableView.insertRows(at: [newIndexPath], with: .automatic)
-		case .delete:
-			guard let indexPath = indexPath else { return }
-			tableView.deleteRows(at: [indexPath], with: .automatic)
-		case .move:
-			guard let indexPath = indexPath,
-				let newIndexPath = newIndexPath else { return }
-			tableView.deleteRows(at: [indexPath], with: .automatic)
-			tableView.insertRows(at: [newIndexPath], with: .automatic)
-		case .update:
-			guard let indexPath = indexPath else { return }
-			tableView.reloadRows(at: [indexPath], with: .automatic)
-		@unknown default:
-			print("uknow default")
-		}
-	}
-	
-	func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
-					didChange sectionInfo: NSFetchedResultsSectionInfo,
-					atSectionIndex sectionIndex: Int,
-					for type: NSFetchedResultsChangeType) {
-		switch type {
-		case .insert:
-			let indexSet = IndexSet(integer: sectionIndex)
-			tableView.insertSections(indexSet, with: .automatic)
-		case .delete:
-			let indexSet = IndexSet(integer: sectionIndex)
-			tableView.deleteSections(indexSet, with: .automatic)
-		default:
-			break
-		}
-	}
-	
-	func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-		tableView.endUpdates()
 	}
 	
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -105,6 +54,59 @@ class EntriesTableViewController: UITableViewController, NSFetchedResultsControl
 		}
 	}
 	
+	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+		return fetchedResultController.sections?[section].name
+	}
+	
+	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		return fetchedResultController.sections?[section].numberOfObjects ?? 0
+	}
+	
+	func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+		tableView.beginUpdates()
+	}
+	
+	func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+		switch type {
+		case .insert:
+			guard let newIndexPath = newIndexPath else { return }
+			tableView.insertRows(at: [newIndexPath], with: .automatic)
+		case .delete:
+			guard let indexPath = indexPath else { return }
+			tableView.deleteRows(at: [indexPath], with: .automatic)
+		case .move:
+			guard let indexPath = indexPath,
+				let newIndexPath = newIndexPath else { return }
+			tableView.deleteRows(at: [indexPath], with: .automatic)
+			tableView.insertRows(at: [newIndexPath], with: .automatic)
+		case .update:
+			guard let indexPath = indexPath else { return }
+			tableView.reloadRows(at: [indexPath], with: .automatic)
+		@unknown default:
+			print("uknow default")
+		}
+	}
+	
+	func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
+					didChange sectionInfo: NSFetchedResultsSectionInfo,
+					atSectionIndex sectionIndex: Int,
+					for type: NSFetchedResultsChangeType) {
+		
+		switch type {
+		case .insert:
+			let indexSet = IndexSet(integer: sectionIndex)
+			tableView.insertSections(indexSet, with: .automatic)
+		case .delete:
+			let indexSet = IndexSet(integer: sectionIndex)
+			tableView.deleteSections(indexSet, with: .automatic)
+		default:
+			break
+		}
+	}
+	
+	func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+		tableView.endUpdates()
+	}
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		if segue.identifier == "ShowDetail" {
@@ -115,24 +117,11 @@ class EntriesTableViewController: UITableViewController, NSFetchedResultsControl
 	}
 	
 	
-//	var entries: [Entry] {
-//		let fetchRequest: NSFetchRequest<Entry> = Entry.fetchRequest()
-//		let moc = CoreDataStack.shared.mainContext
-//
-//		do {
-//			let result = try moc.fetch(fetchRequest)
-//			return result
-//		} catch {
-//			NSLog("Error fetching tasks: \(error)")
-//			return []
-//		}
-//	}
-	
 	
 	lazy var fetchedResultController: NSFetchedResultsController<Entry> = {
 		
 		let fetchRequest: NSFetchRequest<Entry> = Entry.fetchRequest()
-		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "mood", ascending: true)]//, NSSortDescriptor(key: "timeStamp", ascending: true)]
+		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "mood", ascending: true), NSSortDescriptor(key: "timeStamp", ascending: true)]
 		
 		let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
 																  managedObjectContext: CoreDataStack.shared.mainContext,
