@@ -81,7 +81,7 @@
                                     <outlet property="bodyLabel" destination="ziN-oA-zwo" id="LWv-YX-WJp"/>
                                     <outlet property="timestampLabel" destination="JNE-rf-BBv" id="xMO-Jp-iR2"/>
                                     <outlet property="titleLabel" destination="6Oq-vH-TFB" id="0aA-cq-zOi"/>
-                                    <segue destination="MQb-F5-t4K" kind="push" identifier="ShowDetail" id="I3Q-Xf-Msc"/>
+                                    <segue destination="MQb-F5-t4K" kind="show" identifier="ShowDetail" id="I3Q-Xf-Msc"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -93,7 +93,7 @@
                     <navigationItem key="navigationItem" title="Journal" id="KL5-LM-FkH">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="a3M-vd-hz5">
                             <connections>
-                                <segue destination="MQb-F5-t4K" kind="push" identifier="AddJournalSegue" id="vMc-wj-KBX"/>
+                                <segue destination="MQb-F5-t4K" kind="show" identifier="AddJournalSegue" id="vMc-wj-KBX"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -186,6 +186,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="I3Q-Xf-Msc"/>
+        <segue reference="vMc-wj-KBX"/>
     </inferredMetricsTieBreakers>
 </document>
