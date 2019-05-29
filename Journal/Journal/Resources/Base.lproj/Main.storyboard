@@ -110,32 +110,42 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter a title here." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xn4-tW-yx0">
-                                <rect key="frame" x="20" y="148" width="374" height="30"/>
-                                <color key="backgroundColor" red="0.9510807966" green="0.9510807966" blue="0.9510807966" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="nkx-Kn-Lkk">
-                                <rect key="frame" x="20" y="198" width="374" height="220"/>
-                                <color key="backgroundColor" red="0.9510807966" green="0.9510807966" blue="0.9510807966" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="nkx-Kn-Lkk" secondAttribute="height" multiplier="17:10" id="7YM-wu-HFm"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="L4J-hD-z6d">
+                                <rect key="frame" x="20" y="148" width="374" height="318"/>
+                                <subviews>
+                                    <segmentedControl contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="JD7-Ep-egM">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="29"/>
+                                        <segments>
+                                            <segment title="😀"/>
+                                            <segment title="😅"/>
+                                            <segment title="😱"/>
+                                        </segments>
+                                    </segmentedControl>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter a title here." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xn4-tW-yx0">
+                                        <rect key="frame" x="0.0" y="48" width="374" height="30"/>
+                                        <color key="backgroundColor" red="0.9510807966" green="0.9510807966" blue="0.9510807966" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="nkx-Kn-Lkk">
+                                        <rect key="frame" x="0.0" y="98" width="374" height="220"/>
+                                        <color key="backgroundColor" red="0.9510807966" green="0.9510807966" blue="0.9510807966" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="nkx-Kn-Lkk" secondAttribute="height" multiplier="17:10" id="7YM-wu-HFm"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="xn4-tW-yx0" firstAttribute="trailing" secondItem="nkx-Kn-Lkk" secondAttribute="trailing" id="4d9-Hk-rgu"/>
-                            <constraint firstItem="cWP-ln-xMH" firstAttribute="trailing" secondItem="nkx-Kn-Lkk" secondAttribute="trailing" constant="20" id="AVb-M3-F7B"/>
-                            <constraint firstItem="nkx-Kn-Lkk" firstAttribute="top" secondItem="xn4-tW-yx0" secondAttribute="bottom" constant="20" id="CQC-5h-Nzj"/>
-                            <constraint firstItem="nkx-Kn-Lkk" firstAttribute="leading" secondItem="cWP-ln-xMH" secondAttribute="leading" constant="20" id="MME-eq-oCB"/>
-                            <constraint firstItem="xn4-tW-yx0" firstAttribute="leading" secondItem="nkx-Kn-Lkk" secondAttribute="leading" id="W5G-Kn-UfU"/>
-                            <constraint firstItem="xn4-tW-yx0" firstAttribute="top" secondItem="cWP-ln-xMH" secondAttribute="top" constant="8" id="k2G-yp-Q1a"/>
-                            <constraint firstItem="nkx-Kn-Lkk" firstAttribute="centerX" secondItem="o0P-6c-2yH" secondAttribute="centerX" id="tCF-ba-AtS"/>
+                            <constraint firstItem="L4J-hD-z6d" firstAttribute="centerX" secondItem="o0P-6c-2yH" secondAttribute="centerX" id="Hrh-UX-xvt"/>
+                            <constraint firstItem="L4J-hD-z6d" firstAttribute="top" secondItem="cWP-ln-xMH" secondAttribute="top" constant="8" id="P8a-ch-r2t"/>
+                            <constraint firstItem="L4J-hD-z6d" firstAttribute="leading" secondItem="cWP-ln-xMH" secondAttribute="leading" constant="20" id="Z4B-jJ-ygz"/>
+                            <constraint firstItem="cWP-ln-xMH" firstAttribute="trailing" secondItem="L4J-hD-z6d" secondAttribute="trailing" constant="20" id="uGT-ZC-EsD"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="cWP-ln-xMH"/>
                     </view>
