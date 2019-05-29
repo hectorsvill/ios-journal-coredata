@@ -12,14 +12,13 @@ class EntryTableViewCell: UITableViewCell {
 
 	
 	private func setupViews() {
-		guard let entry = entry, let mood = entry.mood else { return }
+		guard let entry = entry else { return }
 		
-		
-		titleLabel?.text = entry.title ?? "" + " \(mood)"
+		titleLabel?.text = entry.title
 		
 		let formated = DateFormatter()
 		formated.dateFormat = "yyyy-MM-dd  hh:mm a"
- 
+		
 		timestampLabel?.text = formated.string(from: entry.timeStamp!)
 		
 		bodyLabel?.text = entry.bodyText

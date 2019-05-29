@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class EntriesTableViewController: UITableViewController {
+class EntriesTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
 	
 	override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,14 +22,14 @@ class EntriesTableViewController: UITableViewController {
 	}
 	
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return entries.count
+		return fetchedResultController.sections?[section].numberOfObjects ?? 0
 	}
 	
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "EntryCell", for: indexPath)
 		
 		guard let entryCell = cell as? EntryTableViewCell else { return cell }
-		let entry = entries[indexPath.row]
+		let entry = fetchedResultController.object(at: indexPath)
 		entryCell.entry = entry
 		return entryCell
 	}
@@ -37,7 +37,7 @@ class EntriesTableViewController: UITableViewController {
 	override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
 		if editingStyle == .delete {
 			
-			let entry = entries[indexPath.row]
+			let entry = fetchedResultController.object(at: indexPath)
 			let moc = CoreDataStack.shared.mainContext
 			
 			moc.delete(entry)
@@ -57,22 +57,43 @@ class EntriesTableViewController: UITableViewController {
 		if segue.identifier == "ShowDetail" {
 			guard let vc = segue.destination as? EntryDetailViewController,
 				let indexpath = tableView.indexPathForSelectedRow else { return }
-			vc.entry = entries[indexpath.row]
+			vc.entry = fetchedResultController.object(at: indexpath)
 		}
 	}
 	
 	
-	var entries: [Entry] {
+//	var entries: [Entry] {
+//		let fetchRequest: NSFetchRequest<Entry> = Entry.fetchRequest()
+//		let moc = CoreDataStack.shared.mainContext
+//
+//		do {
+//			let result = try moc.fetch(fetchRequest)
+//			return result
+//		} catch {
+//			NSLog("Error fetching tasks: \(error)")
+//			return []
+//		}
+//	}
+	
+	
+	lazy var fetchedResultController: NSFetchedResultsController<Entry> = {
+		
 		let fetchRequest: NSFetchRequest<Entry> = Entry.fetchRequest()
-		let moc = CoreDataStack.shared.mainContext
+		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "mood", ascending: true), NSSortDescriptor(key: "timeStamp", ascending: true)]
+		
+		let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
+																  managedObjectContext: CoreDataStack.shared.mainContext,
+																  sectionNameKeyPath: "mood",
+																  cacheName: nil)
+		fetchedResultsController.delegate = self
 		
 		do {
-			let result = try moc.fetch(fetchRequest)
-			return result
+			try fetchedResultsController.performFetch()
 		} catch {
-			NSLog("Error fetching tasks: \(error)")
-			return []
+			NSLog("Error performing initial fetch for frc: \(error)")
 		}
-	}
+		
+		return fetchedResultsController
+	}()
 	
 }
